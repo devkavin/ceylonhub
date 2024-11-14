@@ -20,11 +20,8 @@ class CategoryController extends Controller
             $sortField = request("sort_field", 'created_at');
             $sortDirection = request("sort_direction", 'desc');
 
-            if (request("company_name")) {
-                $query->where("company_name", "like", "%" . request("company_name") . "%");
-            }
-            if (request("position")) {
-                $query->where("position", "like", "%" . request("position") . "%");
+            if (request("category_name")) {
+                $query->where("category_name", "like", "%" . request("category_name") . "%");
             }
 
             $categories = $query->orderBy($sortField, $sortDirection)
@@ -32,7 +29,7 @@ class CategoryController extends Controller
 
             // return to react component
             return Inertia::render('Category/Index', [
-                'applications' => $categories,
+                'categories' => $categories,
                 'success' => session('success'),
             ]);
         } catch (\Exception $e) {
